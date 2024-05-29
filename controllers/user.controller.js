@@ -3,8 +3,6 @@ import bcrypt from 'bcrypt'
 
 export const getUsers = async (req, res) => {
     try {
-
-
         const users = await prisma.user.findMany()
         res.status(200).json(users)
     } catch (error) {
@@ -48,7 +46,7 @@ export const updateUser = async (req, res) => {
             }
         })
 
-        res.status(403).json(updatedUser)
+        res.status(200).json(updatedUser)
     } catch (error) {
         console.log(error)
         res.status(500).json({ message: "Failed to update user!" })
@@ -65,11 +63,11 @@ export const deleteUser = async (req, res) => {
 
     try {
 
-        const deleteduser = await prisma.user.delete({
+        await prisma.user.delete({
             where: { id },
         })
 
-        res.status(403).json({ message: "User deleted!" })
+        res.status(200).json({ message: "User deleted!" })
     } catch (error) {
         console.log(error)
         res.status(500).json({ message: "Failed to delete user!" })
